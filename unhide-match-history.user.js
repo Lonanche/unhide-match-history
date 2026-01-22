@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoGuessr Unhide Match History
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Display recent duels widget on GeoGuessr profiles
 // @author       Lonanche
 // @match        https://www.geoguessr.com/*
@@ -436,7 +436,7 @@
         if (location.href !== lastUrl) {
             lastUrl = location.href;
             if (location.pathname.startsWith('/user/')) {
-                setTimeout(main, 1000);
+                main();
             }
         }
     }).observe(document, { subtree: true, childList: true });
