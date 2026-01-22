@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         GeoGuessr Unhide Match History
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Display recent duels widget on GeoGuessr profiles
 // @author       Lonanche
-// @match        https://www.geoguessr.com/user/*
+// @match        https://www.geoguessr.com/*
 // @updateURL    https://raw.githubusercontent.com/Lonanche/unhide-match-history/main/unhide-match-history.user.js
 // @downloadURL  https://raw.githubusercontent.com/Lonanche/unhide-match-history/main/unhide-match-history.user.js
 // @grant        none
