@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GeoGuessr Unhide Match History
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Display recent duels widget on GeoGuessr profiles
 // @author       Lonanche
 // @match        https://www.geoguessr.com/*
@@ -224,6 +224,15 @@
         return GAME_MODE_ABBREVIATIONS[gameMode] || gameMode.replace(/([A-Z])/g, ' $1').trim().toUpperCase();
     }
 
+    function formatDate(isoString) {
+        if (!isoString) return '';
+        const date = new Date(isoString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
     function buildPlayerDataMap(teams) {
         const map = {};
         for (const team of teams || []) {
@@ -254,6 +263,7 @@
             : [enrichedPlayers[1], enrichedPlayers[0]];
         const primaryUserWon = leftPlayer?.isWinner;
         const gameModeDisplay = formatGameMode(gameMode);
+        const matchDate = formatDate(duel?.rounds?.[0]?.startTime);
 
         const cardBg = primaryUserWon
             ? 'linear-gradient(135deg, rgba(108,185,40,0.25) 0%, rgba(108,185,40,0.1) 100%)'
@@ -287,6 +297,7 @@
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 50px;">
                         <span style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.6); letter-spacing: 0.5px;">${gameModeDisplay}</span>
                         <span style="font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.4);">VS</span>
+                        <span style="font-size: 10px; color: rgba(255,255,255,0.4);">${matchDate}</span>
                     </div>
                     ${buildAvatarCell(rightPlayer)}
                     ${buildPlayerColumn(rightPlayer, 'right')}
